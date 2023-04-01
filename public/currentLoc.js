@@ -27,11 +27,15 @@ function getPosition(position) {
 
     marker = L.marker([lat, long])
     circle = L.circle([lat, long], { radius: 400 })
+    // console.log(circle)
+
 
     var featureGroup = L.featureGroup([marker, circle]).addTo(map)
     
 
     map.fitBounds(featureGroup.getBounds())
+
+    map.setView([lat, long], 40);
 
 
     console.log("Your coordinate is: Lat: " + lat + " Long: " + long + " Accuracy: " + accuracy)

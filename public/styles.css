@@ -2,3 +2,33 @@
 	height: 100vh;
 /*    overflow: auto;*/
 }
+
+.container-fluid{
+	background-color: cornflowerblue;
+    padding: 15px;
+    margin: 9px;
+}
+
+.container-fluid  .navbar-brand{
+	color: azure;
+}
+
+.collapse .navbar-nav .nav-link.active{
+	
+	color: azure;
+    border: 2px solid black;
+    border-radius: 17px;
+	text-align: center;
+	margin: 5px;
+	display: inline-block;
+	padding: 10px;
+	margin: auto;
+}
+
+.collapse .navbar-nav .nav-link.active:hover{
+	color: black;
+    border: 2px solid white;
+	font-weight: 600;
+	
+
+}

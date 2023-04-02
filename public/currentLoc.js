@@ -11,6 +11,11 @@ if (!navigator.geolocation) {
 
 var marker, circle, lat, long, accuracy;
 
+var StartPoint = L.icon({
+    iconUrl: 'imgs/currLoc.png',
+    iconSize: [50, 50]
+})
+
 function getPosition(position) {
     // console.log(position)
     lat = position.coords.latitude
@@ -25,8 +30,10 @@ function getPosition(position) {
         map.removeLayer(circle)
     }
 
-    marker = L.marker([lat, long])
-    circle = L.circle([lat, long], { radius: 400 })
+    marker = L.marker([lat, long], { icon: StartPoint})
+    circle = L.circle([lat, long], { radius: 300, stroke:false,fill:false})
+    // circle = L.circle([lat, long])
+
     // console.log(circle)
 
 
@@ -35,7 +42,7 @@ function getPosition(position) {
 
     map.fitBounds(featureGroup.getBounds())
 
-    map.setView([lat, long], 40);
+    map.flyTo([lat, lng], 500);
 
 
     console.log("Your coordinate is: Lat: " + lat + " Long: " + long + " Accuracy: " + accuracy)

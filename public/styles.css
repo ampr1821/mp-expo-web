@@ -6,7 +6,8 @@
 .container-fluid{
 	background-color: cornflowerblue;
     padding: 15px;
-    margin: 9px;
+    margin: 1px;
+	border: 1px solid black;
 }
 
 .container-fluid  .navbar-brand{
@@ -29,6 +30,6 @@
 	color: black;
     border: 2px solid white;
 	font-weight: 600;
-	
+	transition: 0.5s;
 
 }

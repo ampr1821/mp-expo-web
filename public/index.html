@@ -7,24 +7,14 @@
 	 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
      integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI="
      crossorigin=""/>
-     <link rel="stylesheet" type="text/css" href="./styles.css"  />
+     <link rel="stylesheet" type="text/css" href="./styles.css"/>
 </head>
 <body>
+	<button onclick="myFunction()">Click me</button>
 	 <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
      integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM="
      crossorigin=""></script>
      <div id="map"></div>
-     <script type="text/javascript">
-     	var map = L.map('map').setView([12.887802, 77.6432018], 13);
-     	// L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-	    // 	maxZoom: 19,
-	    // 	attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-		// }).addTo(map);
-
-     	L.tileLayer('http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}',{
-	    	maxZoom: 20,
-	    	subdomains:['mt0','mt1','mt2','mt3']
-		}).addTo(map);
-     </script>
+     <script type="text/javascript" src="routing.js"></script>
 </body>
 </html>

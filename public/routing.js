@@ -23,7 +23,9 @@ function myFunction() {
 	const Http = new XMLHttpRequest();
 	var ipaddr = '3.110.207.245'//change to .env entry later
 	const url='http://'+ipaddr+':5566/getroute?lat1='+ lat1 +'&lon1='+lng1+'&lat2='+lat2+'&lon2='+lng2;
+	console.log(url)
 	Http.open("GET", url);
+	Http.setRequestHeader('Access-Control-Allow-Origin', 'http://3.110.207.245:5566')
 	Http.send();
 
 	Http.onreadystatechange = (e) => {

@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/Am271/mp-expo-web/issues"
   },
-  "homepage": "https://github.com/Am271/mp-expo-web#readme"
+  "homepage": "https://github.com/Am271/mp-expo-web#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
 }

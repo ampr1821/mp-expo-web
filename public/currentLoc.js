@@ -30,19 +30,22 @@ function getPosition(position) {
         map.removeLayer(circle)
     }
 
-    marker = L.marker([lat, long], { icon: StartPoint})
-    circle = L.circle([lat, long], { radius: 300, stroke:false,fill:false})
+    L.marker([lat, long], { icon: StartPoint}).addTo(map)
+    L.circle([lat, long], { radius: 25}).addTo(map)
     // circle = L.circle([lat, long])
 
     // console.log(circle)
 
-
-    var featureGroup = L.featureGroup([marker, circle]).addTo(map)
     
 
-    map.fitBounds(featureGroup.getBounds())
+    // var featureGroup = L.featureGroup([marker, circle])
+    
 
-    map.flyTo([lat, lng], 500);
+    // map.fitBounds(featureGroup.getBounds())    
+    // map.flyTo([lat,long], 18)
+
+
+    map.panTo([lat,long])
 
 
     console.log("Your coordinate is: Lat: " + lat + " Long: " + long + " Accuracy: " + accuracy)

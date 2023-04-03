@@ -31,10 +31,10 @@ class CustomPrompt {
 }
 var promot = new CustomPrompt();
 
-/*Geting Value*/
 function changeText(val){ 
 	document.getElementById('status').innerHTML = val;
-	} 
-function doStuff(val){ 
-	document.body.style.background = val; 
-	} 
+	}
+     
+// function doStuff(val){ 
+// 	document.body.style.background = val; 
+// 	} 

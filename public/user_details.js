@@ -26,6 +26,12 @@ class CustomPrompt {
             console.log("this is the paitent name: "+prompt_value1 )
             document.getElementById('dialogoverlay').style.display = "none";
             document.getElementById('dialogbox').style.display = "none";
+
+            //call the gridLay.js
+                // const scp = document.createElement("script");
+	            // document.getElementById("grid").setAttribute("src", "gridLay.js");
+
+
         };
     }
 }

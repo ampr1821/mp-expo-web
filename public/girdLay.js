@@ -2,7 +2,7 @@
   gridval = true;
   function drawGrid() {
     const zoom = map.getZoom();
-    const loadFeatures = zoom > 17;
+    const loadFeatures = zoom > 17 && gridval;
 
     if (loadFeatures) { // Zoom level is high enough
       var ne = map.getBounds().getNorthEast();
@@ -19,6 +19,7 @@
             lat: ne.lat,
             lng: ne.lng
           }
+
         }).then(function(data) {
           // If the grid layer is already present, remove it as it will need to be replaced by the new grid section
           if (typeof grid_layer !== 'undefined') {
@@ -54,7 +55,8 @@
       map.removeLayer(grid_layer);
     }
     else{
-      drawGrid();
       gridval = true;
+      drawGrid();
+      
     }
   }

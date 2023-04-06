@@ -1,4 +1,5 @@
 
+  gridval = true;
   function drawGrid() {
     const zoom = map.getZoom();
     const loadFeatures = zoom > 17;
@@ -46,3 +47,14 @@
   map.whenReady(drawGrid);
   map.on('move', drawGrid);
 
+
+  function gridOn(){
+    if(gridval){
+      gridval = false;
+      map.removeLayer(grid_layer);
+    }
+    else{
+      drawGrid();
+      gridval = true;
+    }
+  }

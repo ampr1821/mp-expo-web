@@ -4,7 +4,8 @@ const http = require('http');
 const server = http.createServer(app);
 const { Server } = require("socket.io");
 const io = new Server(server);
-const spawn = require('child_process').spawn;
+const axios = require('axios');
+const base_url = 'http://localhost:5566/getroute'
 
 // Serve static files from the public directory
 app.use(express.static('public'));
@@ -14,27 +15,23 @@ app.get('/', (req, res) => {
 });
 
 function get_route(latlngs) {
-  const pythonProcess = spawn('venv/bin/python', ["./astar_routing.py", latlngs[0], latlngs[1], latlngs[2], latlngs[3]]);
-  pythonProcess.stderr.on("data", data => {
-    console.log(`stderr: ${data}`);
-  });
-  console.log('python execution')
 
-  pythonProcess.stdout.on('data', (data) => {
-    // Do something with the data returned from python script
-    console.log('request complete');
-    route_data = String(data).split('\n');
-    if (route_data.at(-1) == '')
-      route_data.pop(-1) // popping out the last character
-    route_ = []
-    route_data.forEach(element => {
-      route_.push(element.split(','))
+  axios.get(base_url + '?lat1=' + latlngs[0] + '&lon1=' + latlngs[1] + '&lat2=' + latlngs[2] + '&lon2=' + latlngs[3])
+    .then(function (response) {
+      // handle success
+      io.emit('route', response);
+      console.log('route calculated and sent back');
+    })
+    .catch(function (error) {
+      // handle error
+      console.log(error);
+    })
+    .finally(function () {
+      // always executed
     });
-    io.emit('route', route_);
 
-    console.log('route calculated and sent back');
-    // res.send(route_);
-  });
+
+  // res.send(route_);
 }
 
 io.on('connection', (socket) => {

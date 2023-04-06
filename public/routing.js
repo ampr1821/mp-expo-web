@@ -74,7 +74,8 @@ function myFunction() {
 }
 
 socket.on('route', (data) => {
-	nestedList = data;
+	// nestedList = data;
+	nestedList = JSON.parse(data.replace(/'/g, '"'))
 	routingControl.setWaypoints(nestedList);
 	console.log('route displayed')
 });

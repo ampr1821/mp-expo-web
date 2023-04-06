@@ -30,6 +30,8 @@ class CustomPrompt {
             //call the gridLay.js
                 // const scp = document.createElement("script");
 	            // document.getElementById("grid").setAttribute("src", "gridLay.js");
+                gridval = true;
+                drawGrid();
 
 
         };

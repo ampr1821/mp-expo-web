@@ -65,3 +65,61 @@ button{padding:4px 7px;}hr{color:red;}
 #dialogbox #dialogboxfoot{ background: #666; padding:10px; text-align:right; }
 
 #box{position:absolute; left:360px; top:180px;}
+
+/* -----------------------------------------form design----------------------------- */
+#prompt_value1{
+	margin-top: 4px;
+	border-radius: 6px
+}
+
+#dialogoverlay {
+    display: none;
+    background-color: #ffffff;
+    opacity: 0.7;
+    width: 100%;
+    top: 0px;
+    left: 0px;
+    position: sticky;
+    z-index: 10;
+}
+
+#dialogbox {
+    display: none;
+    position: fixed;
+    background: #ffffff;
+    width: 560px;
+    z-index: 10;
+    border: 2px solid;
+    border-radius: 7px;
+}
+
+#dialogbox #dialogboxhead {
+    background: white;
+    font-size: 19px;
+    padding: 10px;
+    color: #000;
+    margin: 4px;
+	padding-bottom: 0px
+}
+
+#dialogbox #dialogboxbody {
+    background: #03A9F4;
+    padding: 20px;
+    color: #FFF;
+	font-size: 1.1em;
+    border-radius: 10px 10px 0 0;
+	margin-bottom: 0px;
+}
+
+#dialogbox #dialogboxfoot {
+	margin-top: 0;
+    background: #03A9F4;
+    padding: 10px;
+    text-align: right;
+    border-radius: 0 0 10px 10px;
+}
+
+
+#dialogboxfoot button{
+	border-radius: 8px;
+}

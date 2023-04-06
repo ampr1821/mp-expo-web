@@ -11,8 +11,8 @@ class CustomPrompt {
             dialogbox.style.left = (winW / 2) - (560 * .5) + "px";
             dialogbox.style.top = "5px";
             dialogbox.style.display = "block";
-            document.getElementById('dialogboxhead').innerHTML = "A value is required";
-            document.getElementById('dialogboxbody').innerHTML = dialog;
+            document.getElementById('dialogboxhead').innerHTML = "The Ambulance form 📄";
+            document.getElementById('dialogboxbody').innerHTML = "Enter the patinet's name : ";
             document.getElementById('dialogboxbody').innerHTML += '<br><input id="prompt_value1"/>';
             document.getElementById('dialogboxfoot').innerHTML = '<button onclick="promot.ok(\'' + fctn + '\')">OK</button> <button onclick="promot.cancel()">Cancel</button>';
         };

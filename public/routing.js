@@ -7,24 +7,31 @@ L.tileLayer('http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}',{
 var lat1,lng1,lat2,lng2
 var markersLayer = L.layerGroup()
 map.on('click', function(e) {
-	marker = L.marker(e.latlng)
-	markersLayer.addTo(map)
-	markersLayer.addLayer(marker)
-	if(typeof(lat1)=="undefined") {
+	if(lat1 == null) {
 		lat1 = e.latlng.lat
 		lng1 = e.latlng.lng
+		marker = L.marker(e.latlng)
+		markersLayer.addTo(map)
+		markersLayer.addLayer(marker)
 		console.log(lat1,lng1);
 	}
-	else if(typeof(lat2)=="undefined"){
+	else if(lat2 == null){
 		lat2 = e.latlng.lat
 		lng2 = e.latlng.lng
+		marker = L.marker(e.latlng)
+		markersLayer.addTo(map)
+		markersLayer.addLayer(marker)
 		console.log("Point 2" ,lat2,lng2);
 	}
 });
 
 function removeMarkers() {
 	map.removeLayer(markersLayer)
-	markersLayer = L.layerGroup();
+	markersLayer = L.layerGroup()
+	lat1 = null
+	lng1 = null
+	lat2 = null
+	lng2 = null
 }
 
 function myFunction() {

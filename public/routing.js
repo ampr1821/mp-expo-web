@@ -5,19 +5,27 @@ L.tileLayer('http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}',{
 }).addTo(map);
 
 var lat1,lng1,lat2,lng2
+var markersLayer = L.layerGroup()
 map.on('click', function(e) {
-	L.marker(e.latlng).addTo(map)
+	marker = L.marker(e.latlng)
+	markersLayer.addTo(map)
+	markersLayer.addLayer(marker)
 	if(typeof(lat1)=="undefined") {
 		lat1 = e.latlng.lat
 		lng1 = e.latlng.lng
 		console.log(lat1,lng1);
 	}
-	else {
+	else if(typeof(lat2)=="undefined"){
 		lat2 = e.latlng.lat
 		lng2 = e.latlng.lng
 		console.log("Point 2" ,lat2,lng2);
 	}
 });
+
+function removeMarkers() {
+	map.removeLayer(markersLayer)
+	markersLayer = L.layerGroup();
+}
 
 function myFunction() {
 	const Http = new XMLHttpRequest();

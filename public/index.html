@@ -57,15 +57,15 @@
 					</li>
 
 					<li class="nav-item" id="grid" onclick="gridOn()">
-						<a class="nav-link active" aria-current="page" href="#">Add Grid</a>
+						<a class="nav-link active" aria-current="page" href="#">Toggle Grid</a>
 					</li>
 
 					<li class="nav-item" id="plot" onclick="myFunction()">
-						<a class="nav-link active" aria-current="page" href="#">Add path</a>
+						<a class="nav-link active" aria-current="page" href="#">Calculate Route</a>
 					</li>
 
 					<li class="nav-item" id="clear" onclick="removeMarkers()">
-						<a class="nav-link active" aria-current="page" href="#">clear markers</a>
+						<a class="nav-link active" aria-current="page" href="#">Clear Markers</a>
 					</li>
 				</ul>
 			</div>
@@ -85,15 +85,13 @@
 	<!-- user current location - leaflet control geocoder  -->
 	<script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
 	<div id="map"></div>
-
+	<script src="/socket.io/socket.io.js"></script>
 	<script src="routing.js"></script>
 	<script src="currentLoc.js"></script>
 	<script src="user_details.js"></script>
 	<!-- <script  id ="grid" src="girdLay.js"></script> -->
 
 	<script src="girdLay.js"></script>
-
-	<script src="/socket.io/socket.io.js"></script>
 
 	<!-- document.getElementById("grid").setAttribute("src", "democlass.js"); -->
 

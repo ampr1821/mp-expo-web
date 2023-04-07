@@ -1,0 +1,5 @@
+osmnx
+scikit-learn
+Flask
+waitress
+flask-cors

@@ -1,0 +1,7 @@
+node_modules/
+package-lock.json
+.gitignore
+.git/
+.github/
+blr.bin
+venv/

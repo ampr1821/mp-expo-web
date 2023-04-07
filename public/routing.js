@@ -123,6 +123,9 @@ function w3w(e) {
     .then(function(response) {
       console.log("[convertTo3wa]", response);
 
+      document.querySelector("#search-control input").setAttribute("placeholder", response.words) 
+    console.log(response.words)
+
       northeast = [response.square.northeast.lat,response.square.northeast.lng] 
       southwest = [response.square.southwest.lat,response.square.southwest.lng]
 

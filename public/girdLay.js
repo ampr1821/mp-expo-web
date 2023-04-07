@@ -53,10 +53,13 @@ function gridOn() {
   if (gridval) {
     gridval = false;
     map.removeLayer(grid_layer);
+  firstpolyline.remove(map)
+
   }
   else {
     gridval = true;
     drawGrid();
+    firstpolyline.addTo(map)
 
   }
 }

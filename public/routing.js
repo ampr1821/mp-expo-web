@@ -37,44 +37,16 @@ map.on("click", function (e) {
     lat1 = e.latlng.lat;
     lng1 = e.latlng.lng;
     marker = L.marker(e.latlng);
-    what3words.api.convertTo3wa({lat:e.latlng.lat, lng:e.latlng.lng}, 'en')
-    .then(function(response) {
-      console.log("[convertTo3wa]", response);
-
-      northeast = [response.square.northeast.lat,response.square.northeast.lng] 
-      southwest = [response.square.southwest.lat,response.square.southwest.lng]
-
-      result = getOtherCorners(northeast,southwest)
-
-    southeast = result.southeast.split(",").map(Number);
-    northwest = result.northwest.split(",").map(Number);
-
-
-    var pointA = new L.LatLng(northwest[0], northwest[1]);
-    var pointB = new L.LatLng(northeast[0],northeast[1]);
-    var pointC = new L.LatLng(southeast[0], southeast[1]);
-    var pointD = new L.LatLng(southwest[0],southwest[1]);
-    
-
-    var pointList = [pointA,pointB,pointC,pointD,pointA];
-
-    var firstpolyline = new L.Polyline(pointList, {
-        color: 'red',
-        weight: 3,
-        opacity: 0.5,
-        smoothFactor: 1
-    });
-firstpolyline.addTo(map);
-
-
-    });
+    w3w(e);
     markersLayer.addTo(map);
     markersLayer.addLayer(marker);
     console.log(lat1, lng1);
-  } else if (lat2 == null) {
+  } 
+  else if (lat2 == null) {
     lat2 = e.latlng.lat;
     lng2 = e.latlng.lng;
     marker = L.marker(e.latlng);
+    w3w(e);
     markersLayer.addTo(map);
     markersLayer.addLayer(marker);
     console.log("Point 2", lat2, lng2);
@@ -138,7 +110,38 @@ function getOtherCorners(northeast, southwest) {
 
   }
   
+function w3w(e) {
+  what3words.api.convertTo3wa({lat:e.latlng.lat, lng:e.latlng.lng}, 'en')
+    .then(function(response) {
+      console.log("[convertTo3wa]", response);
 
+      northeast = [response.square.northeast.lat,response.square.northeast.lng] 
+      southwest = [response.square.southwest.lat,response.square.southwest.lng]
+
+      result = getOtherCorners(northeast,southwest)
+
+    southeast = result.southeast.split(",").map(Number);
+    northwest = result.northwest.split(",").map(Number);
+
+
+    var pointA = new L.LatLng(northwest[0], northwest[1]);
+    var pointB = new L.LatLng(northeast[0],northeast[1]);
+    var pointC = new L.LatLng(southeast[0], southeast[1]);
+    var pointD = new L.LatLng(southwest[0],southwest[1]);
+    
+
+    var pointList = [pointA,pointB,pointC,pointD,pointA];
+
+    var firstpolyline = new L.Polyline(pointList, {
+        color: 'red',
+        weight: 3,
+        opacity: 0.5,
+        smoothFactor: 1
+    });
+    // firstpolyline.addTo(map);
+  markersLayer.addLayer(firstpolyline);
+  });
+}
   
 
 socket.on('route', (data) => {

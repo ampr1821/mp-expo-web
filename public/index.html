@@ -9,6 +9,8 @@
 	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
 		integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
 
+	<link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css" />
+
 	<link rel="stylesheet" type="text/css" href="./styles.css" />
 
 	<!-- user current location - leaflet control geocoder  -->
@@ -21,12 +23,9 @@
 		integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N"
 		crossorigin="anonymous"></script>
 
-	<script src="https://cdn.what3words.com/javascript-components@4-latest/dist/what3words/what3words.js?key=C54NWIP0"></script>
 	<script
-      src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"
-      integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
-      crossorigin=""
-    ></script>
+		src="https://cdn.what3words.com/javascript-components@4-latest/dist/what3words/what3words.js?key=C54NWIP0"></script>
+	
 
 
 </head>
@@ -53,12 +52,20 @@
 			</button>
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-					<li class="nav-item" onclick="promot.render('Type some text:','changeText')" >
+					<li class="nav-item" onclick="promot.render('Type some text:','changeText')">
 						<a class="nav-link active" aria-current="page" href="#">Book an Ambulance</a>
 					</li>
 
-					<li class="nav-item" id="grid" onclick="gridOn()"  >
+					<li class="nav-item" id="grid" onclick="gridOn()">
 						<a class="nav-link active" aria-current="page" href="#">Add Grid</a>
+					</li>
+
+					<li class="nav-item" id="plot" onclick="myFunction()">
+						<a class="nav-link active" aria-current="page" href="#">Add path</a>
+					</li>
+
+					<li class="nav-item" id="clear" onclick="removeMarkers()">
+						<a class="nav-link active" aria-current="page" href="#">clear markers</a>
 					</li>
 				</ul>
 			</div>
@@ -66,33 +73,25 @@
 	</nav>
 
 
-	
+
 	<script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
 		integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin="">
 		</script>
-	<div id="map"></div>
+
+	<script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script>
+
+	
 
 	<!-- user current location - leaflet control geocoder  -->
 	<script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+	<div id="map"></div>
 
-	<script type="text/javascript">
-		var map = L.map('map').setView([12.887802, 77.6432018], 18);
-		// L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-		// 	maxZoom: 19,
-		// 	attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-		// }).addTo(map);
-
-		L.tileLayer('http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', {
-			maxZoom: 51,
-			subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
-		}).addTo(map);
-	</script>
-
+	<script src="routing.js"></script>
 	<script src="currentLoc.js"></script>
 	<script src="user_details.js"></script>
 	<!-- <script  id ="grid" src="girdLay.js"></script> -->
 
-	<script src="girdLay.js" ></script>
+	<script src="girdLay.js"></script>
 
 	<!-- document.getElementById("grid").setAttribute("src", "democlass.js"); -->
 

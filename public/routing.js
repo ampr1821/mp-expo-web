@@ -60,12 +60,6 @@ function removeMarkers() {
     routingControl.setWaypoints([]);
     // routingControl.remove();
   }
-  firstpolyline.remove(map)
-//     if(gridval == false){
-//   firstpolyline.remove(map)
-//     }else{
-//         firstpolyline.addTo(map);
-//     }
   map.removeLayer(markersLayer);
   markersLayer = L.layerGroup();
   lat1 = null;

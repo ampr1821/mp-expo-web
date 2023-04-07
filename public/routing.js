@@ -37,6 +37,37 @@ map.on("click", function (e) {
     lat1 = e.latlng.lat;
     lng1 = e.latlng.lng;
     marker = L.marker(e.latlng);
+    what3words.api.convertTo3wa({lat:e.latlng.lat, lng:e.latlng.lng}, 'en')
+    .then(function(response) {
+      console.log("[convertTo3wa]", response);
+
+      northeast = [response.square.northeast.lat,response.square.northeast.lng] 
+      southwest = [response.square.southwest.lat,response.square.southwest.lng]
+
+      result = getOtherCorners(northeast,southwest)
+
+    southeast = result.southeast.split(",").map(Number);
+    northwest = result.northwest.split(",").map(Number);
+
+
+    var pointA = new L.LatLng(northwest[0], northwest[1]);
+    var pointB = new L.LatLng(northeast[0],northeast[1]);
+    var pointC = new L.LatLng(southeast[0], southeast[1]);
+    var pointD = new L.LatLng(southwest[0],southwest[1]);
+    
+
+    var pointList = [pointA,pointB,pointC,pointD,pointA];
+
+    var firstpolyline = new L.Polyline(pointList, {
+        color: 'red',
+        weight: 3,
+        opacity: 0.5,
+        smoothFactor: 1
+    });
+firstpolyline.addTo(map);
+
+
+    });
     markersLayer.addTo(map);
     markersLayer.addLayer(marker);
     console.log(lat1, lng1);
@@ -85,6 +116,30 @@ function myFunction() {
     // map.fitBounds(polyline.getBounds());
   }
 }
+
+
+function getOtherCorners(northeast, southwest) {
+
+    // Calculate the coordinates of the southeast corner
+    const southeast = [southwest[0], northeast[1]];
+
+    
+    // Calculate the coordinates of the northwest corner
+    const northwest = [northeast[0], southwest[1]];
+ 
+    
+    console.log(southeast+"---"+northwest)
+    // Return the coordinates of the other two corners
+    return {
+      southeast: southeast.join(","),
+      northwest: northwest.join(",")
+    };
+
+
+  }
+  
+
+  
 
 socket.on('route', (data) => {
   nestedList = data;

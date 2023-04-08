@@ -159,9 +159,8 @@ function w3w(e) {
   
 
 socket.on('route', (data) => {
-  nestedList = data;
   if(!user) {
-    routingControl.setWaypoints(nestedList);
+    routingControl.setWaypoints(data);
   }
   console.log("route displayed");
 });

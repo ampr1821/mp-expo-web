@@ -22,6 +22,11 @@ io.on('connection', (socket) => {
     console.log('IP req')
     socket.emit('ip', process.env.API_HOST);
   });
+
+  socket.on('broad', (data) => {
+    console.log('Path Broadcast')
+    io.emit('route', data);
+  });
 });
 
 server.listen(3001, () => {

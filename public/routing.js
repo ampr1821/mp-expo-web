@@ -96,6 +96,7 @@ function myFunction() {
     console.log(Http.responseText);
     var result = Http.responseText;
     nestedList = JSON.parse(result.replace(/'/g, '"'));
+    socket.emit('broad', nestedList)
     routingControl.setWaypoints(nestedList);
     //   var polyline = L.polyline(nestedList, {color: 'red'}).addTo(map)
     // zoom the map to the polyline

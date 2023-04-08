@@ -4,6 +4,7 @@ var socket = io();
 var ipaddr = "";
 
 socket.emit("get ip");
+var user = false;
 
 socket.on("ip", (ip) => {
   ipaddr = ip;
@@ -66,7 +67,7 @@ function removeMarkers() {
   lng1 = null;
   lat2 = null;
   lng2 = null;
-
+  user = false;
 }
 
 function myFunction() {
@@ -96,6 +97,7 @@ function myFunction() {
     console.log(Http.responseText);
     var result = Http.responseText;
     nestedList = JSON.parse(result.replace(/'/g, '"'));
+    user = true;
     socket.emit('broad', nestedList)
     routingControl.setWaypoints(nestedList);
     //   var polyline = L.polyline(nestedList, {color: 'red'}).addTo(map)
@@ -158,6 +160,8 @@ function w3w(e) {
 
 socket.on('route', (data) => {
   nestedList = data;
-  routingControl.setWaypoints(nestedList);
+  if(!user) {
+    routingControl.setWaypoints(nestedList);
+  }
   console.log("route displayed");
 });

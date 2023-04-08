@@ -30,8 +30,15 @@ routingControl = L.Routing.control({
   waypoints: nestedList,
   show: false,
   waypointMode: "connect",
-  createMarker: function () {},
+  createMarker: function () { },
 }).addTo(map);
+
+socket.on('route', (data) => {
+  if (user == false) {
+    routingControl.setWaypoints(data);
+  }
+  console.log("route displayed");
+});
 
 map.on("click", function (e) {
   if (lat1 == null) {
@@ -42,7 +49,7 @@ map.on("click", function (e) {
     markersLayer.addTo(map);
     markersLayer.addLayer(marker);
     console.log(lat1, lng1);
-  } 
+  }
   else if (lat2 == null) {
     lat2 = e.latlng.lat;
     lng2 = e.latlng.lng;
@@ -120,47 +127,39 @@ function getOtherCorners(northeast, southwest) {
     northwest: northwest.join(","),
   };
 }
-  
+
 function w3w(e) {
-  what3words.api.convertTo3wa({lat:e.latlng.lat, lng:e.latlng.lng}, 'en')
-    .then(function(response) {
+  what3words.api.convertTo3wa({ lat: e.latlng.lat, lng: e.latlng.lng }, 'en')
+    .then(function (response) {
       console.log("[convertTo3wa]", response);
 
-      document.querySelector("#search-control input").setAttribute("placeholder", response.words) 
-    console.log(response.words)
+      document.querySelector("#search-control input").setAttribute("placeholder", response.words)
+      console.log(response.words)
 
-      northeast = [response.square.northeast.lat,response.square.northeast.lng] 
-      southwest = [response.square.southwest.lat,response.square.southwest.lng]
+      northeast = [response.square.northeast.lat, response.square.northeast.lng]
+      southwest = [response.square.southwest.lat, response.square.southwest.lng]
 
-      result = getOtherCorners(northeast,southwest)
+      result = getOtherCorners(northeast, southwest)
 
-    southeast = result.southeast.split(",").map(Number);
-    northwest = result.northwest.split(",").map(Number);
+      southeast = result.southeast.split(",").map(Number);
+      northwest = result.northwest.split(",").map(Number);
 
 
-    var pointA = new L.LatLng(northwest[0], northwest[1]);
-    var pointB = new L.LatLng(northeast[0],northeast[1]);
-    var pointC = new L.LatLng(southeast[0], southeast[1]);
-    var pointD = new L.LatLng(southwest[0],southwest[1]);
-    
+      var pointA = new L.LatLng(northwest[0], northwest[1]);
+      var pointB = new L.LatLng(northeast[0], northeast[1]);
+      var pointC = new L.LatLng(southeast[0], southeast[1]);
+      var pointD = new L.LatLng(southwest[0], southwest[1]);
 
-    var pointList = [pointA,pointB,pointC,pointD,pointA];
 
-    var firstpolyline = new L.Polyline(pointList, {
+      var pointList = [pointA, pointB, pointC, pointD, pointA];
+
+      var firstpolyline = new L.Polyline(pointList, {
         color: 'red',
         weight: 3,
         opacity: 0.5,
         smoothFactor: 1
+      });
+      // firstpolyline.addTo(map);
+      markersLayer.addLayer(firstpolyline);
     });
-    // firstpolyline.addTo(map);
-  markersLayer.addLayer(firstpolyline);
-  });
 }
-  
-
-socket.on('route', (data) => {
-  if(!user) {
-    routingControl.setWaypoints(data);
-  }
-  console.log("route displayed");
-});

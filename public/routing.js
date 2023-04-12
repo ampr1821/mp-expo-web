@@ -30,6 +30,7 @@ routingControl = L.Routing.control({
   waypoints: nestedList,
   show: false,
   waypointMode: "connect",
+  serviceUrl: 'http://router.project-osrm.org/route/v1',
   createMarker: function () { },
 }).addTo(map);
 

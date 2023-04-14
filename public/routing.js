@@ -2,6 +2,7 @@
 var routingControl;
 var socket = io();
 var ipaddr = "";
+let polylines = [];
 
 socket.emit("get ip");
 var user = false;
@@ -69,6 +70,10 @@ function removeMarkers() {
     routingControl.setWaypoints([]);
     // routingControl.remove();
   }
+  polylines.forEach(element => {
+    element.remove(map);
+  });
+  polylines = [];
   map.removeLayer(markersLayer);
   markersLayer = L.layerGroup();
   lat1 = null;
@@ -163,4 +168,57 @@ function w3w(e) {
       // firstpolyline.addTo(map);
       markersLayer.addLayer(firstpolyline);
     });
+}
+
+function trunc(num) {
+  num = num + '';
+  parts = num.split('.');
+  parts[1] = parts[1].substring(0, 6);
+  return parts[0] + '.' + parts[1];
+}
+
+async function display_traffic() {
+  // const Http = new XMLHttpRequest();
+  let bbox = map.getBounds();
+  let bbox_url = trunc(bbox['_southWest']['lng']) + ',' + trunc(bbox['_southWest']['lat']) + ',' + trunc(bbox['_northEast']['lng']) + ',' + trunc(bbox['_northEast']['lat']);
+  const url = 'https://data.traffic.hereapi.com/v7/flow?locationReferencing=shape&in=bbox:' + bbox_url + '&apiKey=tBP0FjQ6FQD01Mc3PcXPBSYvGaiRPcJmI3EwkPOzmAc';
+  // Http.open("GET", url);
+  console.log(url);
+  // let nestedList_ = [];
+  fetch(url)
+  .then(function(response) {
+    return response.json();
+  })
+  .then(function(jsonResponse) {
+    console.log('request complete')
+    console.log(jsonResponse)
+    try {
+      let color = '';
+      jsonResponse['results'].forEach(async element => {
+        let list_ = element['location']['shape']['links'];
+        let jam = element['currentFlow']['speed'] / element['currentFlow']['freeFlow'];
+        if(jam <= 0.60) {
+          color = '#ff6b6b'; // red
+        } else if(jam > 0.60 && jam <= 0.75) {
+          color = '#ffc46b'; // orange
+        } else {
+          color = '#6bff70'; // green
+        }
+        for (let index = 0; index < list_.length; index++) {
+          const elements = list_[index]['points'];
+          elements.forEach(element => {
+            nestedList.push([element['lat'], element['lng']]);
+          });
+          polylines.push(L.polyline(nestedList, {color: color, smoothFactor: 6.0, noClip: true}));
+          polylines.forEach(element => {
+            element.addTo(map);
+          });
+          nestedList = []
+        }
+        // console.log(nestedList);
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  });
 }

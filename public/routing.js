@@ -1,5 +1,5 @@
 // var map = L.map('map').setView([12.887802, 77.6432018], 13);
-var routingControl;
+// var routingControl;
 var socket = io();
 var ipaddr = "";
 let polylines = [];
@@ -26,18 +26,19 @@ L.tileLayer("http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}", {
 
 var lat1, lng1, lat2, lng2;
 var nestedList = [];
+let routingPolyline = L.polyline(nestedList, {color: 'red'});
 var markersLayer = L.layerGroup();
-routingControl = L.Routing.control({
-  waypoints: nestedList,
-  show: false,
-  waypointMode: "connect",
-  serviceUrl: 'http://router.project-osrm.org/route/v1',
-  createMarker: function () { },
-}).addTo(map);
+// routingControl = L.Routing.control({
+//   waypoints: nestedList,
+//   show: false,
+//   waypointMode: "connect",
+//   serviceUrl: 'http://router.project-osrm.org/route/v1',
+//   createMarker: function () { },
+// }).addTo(map);
 
 socket.on('route', (data) => {
   if (user == false) {
-    routingControl.setWaypoints(data);
+
   }
   console.log("route displayed");
 });
@@ -65,15 +66,17 @@ map.on("click", function (e) {
 
 function removeMarkers() {
   // map.removeControl(control);
-  if (routingControl != undefined) {
-    console.log("clearing route!");
-    routingControl.setWaypoints([]);
-    // routingControl.remove();
-  }
+  // if (routingControl != undefined) {
+  //   console.log("clearing route!");
+  //   routingControl.setWaypoints([]);
+  //   // routingControl.remove();
+  // }
   polylines.forEach(element => {
     element.remove(map);
   });
   polylines = [];
+  routingPolyline.remove(map);
+  nestedList = [];
   map.removeLayer(markersLayer);
   markersLayer = L.layerGroup();
   lat1 = null;
@@ -109,11 +112,12 @@ function myFunction() {
   Http.onreadystatechange = (e) => {
     console.log(Http.responseText);
     var result = Http.responseText;
-    nestedList = JSON.parse(result.replace(/'/g, '"'));
+    let nestedList = JSON.parse(result.replace(/'/g, '"'));
     user = true;
     socket.emit('broad', nestedList)
-    routingControl.setWaypoints(nestedList);
-    //   var polyline = L.polyline(nestedList, {color: 'red'}).addTo(map)
+    // routingControl.setWaypoints(nestedList);
+    routingPolyline.setLatLngs(nestedList);
+    routingPolyline.addTo(map);
     // zoom the map to the polyline
     // map.fitBounds(polyline.getBounds());
   };
@@ -184,7 +188,7 @@ async function display_traffic() {
   const url = 'https://data.traffic.hereapi.com/v7/flow?locationReferencing=shape&in=bbox:' + bbox_url + '&apiKey=tBP0FjQ6FQD01Mc3PcXPBSYvGaiRPcJmI3EwkPOzmAc';
   // Http.open("GET", url);
   console.log(url);
-  // let nestedList_ = [];
+  let nestedList_ = [];
   fetch(url)
   .then(function(response) {
     return response.json();
@@ -207,13 +211,13 @@ async function display_traffic() {
         for (let index = 0; index < list_.length; index++) {
           const elements = list_[index]['points'];
           elements.forEach(element => {
-            nestedList.push([element['lat'], element['lng']]);
+            nestedList_.push([element['lat'], element['lng']]);
           });
-          polylines.push(L.polyline(nestedList, {color: color, smoothFactor: 6.0, noClip: true}));
+          polylines.push(L.polyline(nestedList_, {color: color, smoothFactor: 6.0, noClip: true}));
           polylines.forEach(element => {
             element.addTo(map);
           });
-          nestedList = []
+          nestedList_ = []
         }
         // console.log(nestedList);
       });

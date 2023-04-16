@@ -26,8 +26,14 @@ L.tileLayer("http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}", {
 
 var lat1, lng1, lat2, lng2;
 var nestedList = [];
-let routingPolyline = L.polyline(nestedList, {color: 'red'});
+var polyline_options = {
+  color: '#0097e3',
+  weight: 6,
+  opacity: 0.7
+};
+let routingPolyline = L.polyline(nestedList, polyline_options);
 var markersLayer = L.layerGroup();
+
 // routingControl = L.Routing.control({
 //   waypoints: nestedList,
 //   show: false,
